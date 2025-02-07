@@ -13,14 +13,8 @@ pub fn log_usage(session_file: String, usage: Vec<ProviderUsage>) {
         usage,
     };
 
-    let strategy_args = AppStrategyArgs {
-        top_level_domain: "Block".to_string(),
-        author: "Block".to_string(),
-        app_name: "goose".to_string(),
-    };
-
     // Ensure log directory exists
-    if let Ok(home_dir) = choose_app_strategy(strategy_args) {
+    if let Ok(home_dir) = choose_app_strategy(crate::config::base::APP_STRATEGY.clone()) {
         // choose app strategy_args will use ~/.local/state/{app_name} on macos/linux
         // Windows has no convention for state_dir, use data_dir instead
         // and  ~\AppData\Roaming\Block\goose\ on windows
@@ -73,12 +67,7 @@ mod tests {
     #[test]
     fn test_session_logging() {
         run_with_tmp_dir(|| {
-            let strategy_args = AppStrategyArgs {
-                top_level_domain: "Block".to_string(),
-                author: "Block".to_string(),
-                app_name: "goose".to_string(),
-            };
-            let home_dir = choose_app_strategy(strategy_args).unwrap();
+            let home_dir = choose_app_strategy(crate::config::base::APP_STRATEGY.clone()).unwrap();
 
             let log_file = home_dir
                 .in_state_dir("logs")

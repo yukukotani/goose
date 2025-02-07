@@ -15,15 +15,9 @@ use mcp_core::role::Role;
 
 // File management functions
 pub fn ensure_session_dir() -> Result<PathBuf> {
-    let strategy_args = AppStrategyArgs {
-        top_level_domain: "Block".to_string(),
-        author: "Block".to_string(),
-        app_name: "goose".to_string(),
-    };
-
     // choose app strategy_args will use ~/.config/{app_name} on macos/linux
     // and  ~\AppData\Roaming\Block\goose\ on windows
-    let config_dir = choose_app_strategy(strategy_args)
+    let config_dir = choose_app_strategy(crate::config::base::APP_STRATEGY.clone())
         .expect("goose requires a home dir")
         .data_dir()
         .join("sessions");

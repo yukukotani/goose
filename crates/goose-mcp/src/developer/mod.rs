@@ -176,15 +176,9 @@ impl DeveloperRouter {
             cwd=cwd.to_string_lossy(),
         };
 
-        let strategy_args = AppStrategyArgs {
-            top_level_domain: "Block".to_string(),
-            author: "Block".to_string(),
-            app_name: "goose".to_string(),
-        };
-
         // choose app strategy_args will use ~/.config/{app_name} on macos/linux
         // and  ~\AppData\Roaming\Block\goose\ on windows
-        let global_hints_path = choose_app_strategy(strategy_args)
+        let global_hints_path = choose_app_strategy(crate::config::base::APP_STRATEGY.clone())
             .expect("goose requires a home dir")
             .in_config_dir(".goosehints");
 

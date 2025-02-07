@@ -185,15 +185,9 @@ impl ComputerControllerRouter {
             }),
         );
 
-        let strategy_args = AppStrategyArgs {
-            top_level_domain: "Block".to_string(),
-            author: "Block".to_string(),
-            app_name: "goose".to_string(),
-        };
-
         // choose app strategy_args will use ~/.cache/{app_name} on macos/linux
         // and  ~\AppData\Local\Block\goose\ on windows
-        let cache_dir = choose_app_strategy(strategy_args)
+        let cache_dir = choose_app_strategy(crate::config::base::APP_STRATEGY.clone())
             .unwrap() // TODO: unwrap_or_else? failover strategy that supports multiple os's
             .in_cache_dir("computer_controller");
 
