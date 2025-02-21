@@ -57,6 +57,11 @@ jobs:
       - name: Install cross
         run: cargo install cross --git https://github.com/cross-rs/cross
 
+      - name: Check version
+        run: |
+          gcc --version
+          cc --version
+
       - name: Build CLI
         env:
           CROSS_NO_WARNINGS: 0
