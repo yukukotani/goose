@@ -20,6 +20,19 @@ on:
         type: string
         required: false
         default: '["x86_64","aarch64"]'
+  workflow_dispatch:
+    inputs:
+      version:
+        required: false
+        default: ""
+        type: string
+      operating-systems:
+        required: false
+        default: '["ubuntu-latest","macos-latest"]'
+        type: string
+      architectures:
+        required: false
+        default: '["x86_64","aarch64"]'
 
 name: "Reusable workflow to build CLI"
 
